@@ -99,7 +99,6 @@ cache:
 
 before_script:
     # Default
-    - android create avd --help
     - echo no | android create avd --force -n $DROIDMATE_AVD_NAME -t $DROIDMATE_ANDROID_SDK --abi $DROIDMATE_ANDROID_ABI_AVD
     # nexus72013_23_GAPPS_ARM
     # - echo no | android create avd --force -n $DROIDMATE_AVD_NAME -t android-23 --abi "google_apis/armeabi-v7a" -d "Nexus 7 2013" --skin "WSVGA"
