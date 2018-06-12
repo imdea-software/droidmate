@@ -43,11 +43,6 @@ android:
     - android-25
     - android-26
 
-  licenses:
-    - android-sdk-preview-license-.+
-    - android-sdk-license-.+
-    - google-gdk-license-.+
-
 env:
   global:
 
