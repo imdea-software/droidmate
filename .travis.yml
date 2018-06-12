@@ -49,10 +49,17 @@ env:
     # Required to obtain handles to aapt and adb.
     - ANDROID_HOME=/usr/local/android-sdk
 
-before_install:
+    # Fix: emulator64-arm: error while loading shared libraries: libQt5Widgets.so.5:
+    - LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
+    - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ANDROID_HOME/tools/lib
+    # Config for 64 bit emulators
+    - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ANDROID_HOME/tools/lib64
+    - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib
+    - PATH=$PATH:${LD_LIBRARY_PATH}
 
-  # Change to the directory containing the main build script of DroidMate.
-  # - cd dev/droidmate
+    # - ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
+
+before_install:
 
   # Allow Gradle build script to execute.
   - chmod +x gradlew
