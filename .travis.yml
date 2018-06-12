@@ -32,11 +32,11 @@ android:
 
     # DroidMate supports Android API 23 (6.0.1).
     - android-23
-    - sys-img-armeabi-v7a-android-23
+    # - sys-img-armeabi-v7a-android-23
     - sys-img-armeabi-v7a-google_apis-23
     - sys-img-armeabi-v7a-addon-google_apis-google-23
-    - sys-img-x86_64-google_apis-23
-    - sys-img-x86_64-addon-google_apis-google-23
+    # - sys-img-x86_64-google_apis-23
+    # - sys-img-x86_64-addon-google_apis-google-23
     - android-25
     - android-26
 
@@ -81,7 +81,7 @@ cache:
 
 before_script:
     - echo no | android create avd --force -n droidmate_nexus72013_23_GAPPS_ARM -t android-23 --abi "google_apis/armeabi-v7a" -d "Nexus 7 2013" --skin "WSVGA"
-    - emulator64-arm -verbose -debug-all -avd droidmate_nexus72013_23_GAPPS_ARM -no-boot-anim -no-audio -gpu off &> emu_droidmate_nexus72013_23_GAPPS_ARM.log &
+    - emulator -verbose -debug-all -avd droidmate_nexus72013_23_GAPPS_ARM -no-boot-anim -no-audio -no-window &> emu_droidmate_nexus72013_23_GAPPS_ARM.log &
     - android-wait-for-emulator
     - adb shell input keyevent 82 &
 
