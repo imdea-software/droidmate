@@ -82,11 +82,10 @@ cache:
 before_script:
     # nexus72013_23_GAPPS_ARM
     - echo no | android create avd --force -n droidmate -t android-23 --abi "google_apis/armeabi-v7a" -d "Nexus 7 2013" --skin "WSVGA"
-
     # nexus5_23_GAPPS_x86-64
     # - echo no | android create avd --force -n droidmate -t android-23 --abi "google_apis/x86_64" -d "Nexus 5" --skin "WXGA800"
 
-    - emulator -avd droidmate -no-skin -no-window &
+    - emulator64-arm -verbose -debug-all -avd droidmate -no-boot-anim -no-skin -no-window &
     # - emulator -verbose -debug-all -avd droidmate -no-boot-anim -no-audio -no-window &> emu.log &
 
     - travis_wait 30 android-wait-for-emulator
