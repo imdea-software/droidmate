@@ -59,10 +59,13 @@ android:
     - extra-google-m2repository
     - extra-google-google_play_services
 
+    # DroidMate supports Android API 23 (6.0.1).
     - $DROIDMATE_ANDROID_SDK
     - sys-img-$DROIDMATE_ANDROID_ABI-$DROIDMATE_ANDROID_SDK
     - sys-img-$DROIDMATE_ANDROID_ABI-google_apis-$DROIDMATE_ANDROID_TARGET
     - sys-img-$DROIDMATE_ANDROID_ABI-addon-google_apis-google-$DROIDMATE_ANDROID_TARGET
+    - android-25
+    - android-26
 
 before_install:
 
