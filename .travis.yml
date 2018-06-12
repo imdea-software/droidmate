@@ -25,20 +25,28 @@ android:
     # More info: https://docs.travis-ci.com/user/languages/android/#Overview
     - tools
     - platform-tools
+    - tools  # Upgrade again after upgrading platform-tools
     - build-tools-26.0.2
     # Packages required by UIAutomator2
     - extra-android-support
     - extra-android-m2repository
+    - extra-google-google_play_services
 
     # DroidMate supports Android API 23 (6.0.1).
     - android-23
-    # - sys-img-armeabi-v7a-android-23
+    - sys-img-armeabi-v7a-android-23
     - sys-img-armeabi-v7a-google_apis-23
     - sys-img-armeabi-v7a-addon-google_apis-google-23
     # - sys-img-x86_64-google_apis-23
     # - sys-img-x86_64-addon-google_apis-google-23
+
     - android-25
     - android-26
+
+  licenses:
+    - android-sdk-preview-license-.+
+    - android-sdk-license-.+
+    - google-gdk-license-.+
 
 env:
   global:
@@ -77,18 +85,21 @@ cache:
     - $HOME/.gradle/wrapper/
 
     # Note: Android SDK should not be cached, according to https://docs.travis-ci.com/user/caching/#Things-not-to-cache
+    # - $HOME/.android/build-cache
 
 
 before_script:
+    # Default
+    - echo no | android create avd --force -n droidmate -t android-23 --abi armeabi-v7a
     # nexus72013_23_GAPPS_ARM
-    - echo no | android create avd --force -n droidmate_nexus72013_23_GAPPS_ARM -t android-23 --abi "google_apis/armeabi-v7a" -d "Nexus 7 2013" --skin "WSVGA"
-    - emulator -verbose -debug-all -avd droidmate_nexus72013_23_GAPPS_ARM -no-boot-anim -no-audio -no-window &> emu_droidmate_nexus72013_23_GAPPS_ARM.log &
-
+    # - echo no | android create avd --force -n droidmate -t android-23 --abi "google_apis/armeabi-v7a" -d "Nexus 7 2013" --skin "WSVGA"
     # nexus5_23_GAPPS_x86-64
-    # - echo no | android create avd --force -n droidmate_nexus5_23_GAPPS_x86-64 -t android-23 --abi "google_apis/x86_64" -d "Nexus 5" --skin "WXGA800"
-    # - emulator -verbose -debug-all -avd droidmate_nexus5_23_GAPPS_x86-64 -no-boot-anim -no-audio -no-window &> emu_droidmate_nexus5_23_GAPPS_x86-64.log &
+    # - echo no | android create avd --force -n droidmate -t android-23 --abi "google_apis/x86_64" -d "Nexus 5" --skin "WXGA800"
 
-    - android-wait-for-emulator
+    - emulator -avd droidmate -no-audio -no-window &
+    # TOCHECK: - emulator -verbose -debug-all -avd droidmate -no-boot-anim -no-audio -no-window &> emu.log &
+
+    - travis_wait 30 android-wait-for-emulator
     - adb shell input keyevent 82 &
 
 script:
@@ -96,5 +107,5 @@ script:
     - java -jar shadow-1.0-RC1-all.jar --Selectors-timeLimit=300 &> tool_run.log
 
 after_script:
-    # - cat emu_droidmate_nexus72013_23_GAPPS_ARM.log
+    - cat emu.log
     - cat tool_run.log
