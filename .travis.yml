@@ -6,6 +6,8 @@ addons:
     packages:
       # Required by org.droidmate.report.plot()
       - gnuplot
+      # Required by emulator64-arm
+      - libqt5widgets5
 
 git:
   # To speed up things. By default it is 50.
